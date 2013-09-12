@@ -1,12 +1,12 @@
 # Streams Assignment 2 - 2013
 
-This is an implementation of the second project for COMP90057 Stream Processing
-from The University of Melbourne, semester 2 2013.
+My solution to COMP90056 Stream Computing and Applications Assignment 2,
+Semester 2 2013 at The University of Melbourne.
 
 # Author
 
-Aidan Nagorcka-Smith
-aidann@student.unimelb.edu.au
+* Aidan Nagorcka-Smith
+* aidann@student.unimelb.edu.au
 
 # Getting started
 
