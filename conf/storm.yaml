@@ -1,0 +1,4 @@
+topology.kryo.register:
+  - twitter4j.internal.json.StatusJSONImpl
+
+topology.fall.back.on.java.serialization: false
