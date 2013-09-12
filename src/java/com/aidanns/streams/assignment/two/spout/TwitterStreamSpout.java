@@ -23,11 +23,13 @@ import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Values;
 import backtype.storm.utils.Utils;
 
+import com.google.api.client.repackaged.com.google.common.base.Joiner;
 import com.twitter.hbc.ClientBuilder;
 import com.twitter.hbc.core.Client;
 import com.twitter.hbc.core.Constants;
 import com.twitter.hbc.core.Hosts;
 import com.twitter.hbc.core.HttpHosts;
+import com.twitter.hbc.core.endpoint.BaseEndpoint;
 import com.twitter.hbc.core.endpoint.StatusesSampleEndpoint;
 import com.twitter.hbc.core.endpoint.StreamingEndpoint;
 import com.twitter.hbc.core.processor.StringDelimitedProcessor;
@@ -75,7 +77,12 @@ public class TwitterStreamSpout extends BaseRichSpout {
 		BlockingQueue<String> messageQueue =
 				new LinkedBlockingQueue<String>(100000);
 		Hosts hosebirdHosts = new HttpHosts(Constants.STREAM_HOST);
-		StreamingEndpoint endpoint = new StatusesSampleEndpoint();
+		StatusesSampleEndpoint endpoint = new StatusesSampleEndpoint();
+		
+		// Only send English tweets.
+		List<String> languages = new ArrayList<String>();
+		languages.add("en");
+		endpoint.addQueryParameter(Constants.LANGUAGE_PARAM, Joiner.on(",").join(languages));
 		
 		// Load the OAuth authentication stuff from disk.
 		Properties twitterProperties = new Properties();
