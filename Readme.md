@@ -36,7 +36,6 @@ To compile and run in local mode, use the command:
 
     $ mvn compile exec:java -Dexec.classpathScope=compile -Dexec.mainClass=com.aidanns.streams.assignment.two.Topology
 
-
 ## Packaging for use on a Storm cluster
 
 You can package a jar suitable for submitting to a Storm cluster with the command:
@@ -53,3 +52,13 @@ This will package your code and all the non-Storm dependencies into a single
 Use the following Maven command to run the unit tests.
 
     $ mvn test
+
+# Output
+
+Output files are created in the `output/` folder and updated with data from the
+running system.
+
+## Thoughput
+
+Shows information on the current throughput of tweets, total number of tweets
+processed and time the system has run for, updated every second.

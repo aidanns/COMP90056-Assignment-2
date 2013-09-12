@@ -5,6 +5,7 @@ import java.util.Map;
 import twitter4j.Status;
 import twitter4j.internal.logging.Logger;
 
+import com.aidanns.streams.assignment.two.bolt.StatusThroughputRecorderBolt;
 import com.aidanns.streams.assignment.two.spout.TwitterStreamSpout;
 
 import backtype.storm.Config;
@@ -65,6 +66,8 @@ public class AssignmentTwo {
 		// Setup the bolts.
 		builder.setBolt("print-message", new PrintMessageBolt(), 1)
 				.shuffleGrouping("twitter-sample-spout");
+		builder.setBolt("throughput-recorder", new StatusThroughputRecorderBolt(), 1)
+				.shuffleGrouping("twitter-sample-spout");
 
 		// Start the job.
 		Config conf = new Config();
@@ -81,6 +84,7 @@ public class AssignmentTwo {
 			e.printStackTrace();
 		}
 		cluster.shutdown();
+		System.exit(1);
 	}
 
 }

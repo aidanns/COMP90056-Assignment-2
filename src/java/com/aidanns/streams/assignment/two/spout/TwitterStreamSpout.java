@@ -29,9 +29,7 @@ import com.twitter.hbc.core.Client;
 import com.twitter.hbc.core.Constants;
 import com.twitter.hbc.core.Hosts;
 import com.twitter.hbc.core.HttpHosts;
-import com.twitter.hbc.core.endpoint.BaseEndpoint;
 import com.twitter.hbc.core.endpoint.StatusesSampleEndpoint;
-import com.twitter.hbc.core.endpoint.StreamingEndpoint;
 import com.twitter.hbc.core.processor.StringDelimitedProcessor;
 import com.twitter.hbc.httpclient.auth.Authentication;
 import com.twitter.hbc.httpclient.auth.OAuth1;
@@ -82,7 +80,8 @@ public class TwitterStreamSpout extends BaseRichSpout {
 		// Only send English tweets.
 		List<String> languages = new ArrayList<String>();
 		languages.add("en");
-		endpoint.addQueryParameter(Constants.LANGUAGE_PARAM, Joiner.on(",").join(languages));
+		endpoint.addQueryParameter(
+				Constants.LANGUAGE_PARAM, Joiner.on(",").join(languages));
 		
 		// Load the OAuth authentication stuff from disk.
 		Properties twitterProperties = new Properties();
@@ -130,7 +129,8 @@ public class TwitterStreamSpout extends BaseRichSpout {
 
 			@Override
 			public void onException(Exception e) {
-				Logger.getLogger(TwitterStreamSpout.class).error(e.getMessage());
+				Logger.getLogger(TwitterStreamSpout.class)
+						.error(e.getMessage());
 				return;
 			}
 
@@ -141,7 +141,8 @@ public class TwitterStreamSpout extends BaseRichSpout {
 
 			@Override
 			public void onStatus(Status status) {
-				Logger.getLogger(TwitterStreamSpout.class).debug(status.getText());
+				Logger.getLogger(TwitterStreamSpout.class)
+						.debug(status.getText());
 				_statusQueue.add(status);
 			}
 
