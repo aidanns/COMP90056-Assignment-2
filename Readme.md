@@ -34,7 +34,7 @@ Install Maven (preferably version 3.x) by following the
 
 To compile and run in local mode, use the command:
 
-    $ mvn compile exec:java -Dexec.classpathScope=compile -Dexec.mainClass=com.aidanns.streams.assignment.two.Topology
+    $ mvn compile exec:java -Dexec.classpathScope=compile -Dexec.mainClass=com.aidanns.streams.assignment.two.topology.AssignmentTwo
 
 ## Packaging for use on a Storm cluster
 
