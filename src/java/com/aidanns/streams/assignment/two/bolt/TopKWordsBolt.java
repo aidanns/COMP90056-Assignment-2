@@ -109,7 +109,7 @@ public class TopKWordsBolt extends BaseStatusBolt {
 								+ throughput + " wps\n");
 						
 						writer.write("\n");
-						for (Counter<String> counter : _topWords.topK(20)) {
+						for (Counter<String> counter : _topWords.topK(_numWords)) {
 							writer.write("Item: " + counter.getItem() + " Count: " 
 									+ counter.getCount() + " Error: " 
 									+ counter.getError() + "\n");
