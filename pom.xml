@@ -94,6 +94,9 @@
 			<resource>
 				<directory>${basedir}/conf</directory>
 			</resource>
+			<resource>
+			  <directory>${basedir}/input</directory>
+			</resource>
 		</resources>
 		<pluginManagement>
 			<plugins>

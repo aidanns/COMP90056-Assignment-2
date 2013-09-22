@@ -1,7 +1,10 @@
 .classpath
 .project
 conf/twitter.properties
+conf/input.properties
 .settings
 target/
 lib
 output/*
+input/*
+

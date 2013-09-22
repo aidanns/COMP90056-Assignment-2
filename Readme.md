@@ -30,6 +30,15 @@ specifying the OAuth credentials for the twitter account for API access.
 
 Stop words (which may not appear in the top words list) are listed in the file `conf/stop_words.txt`, one word per line.
 
+### Input tweets file
+
+Create a file `conf/input.properties` and fill it with the following content,
+specifying the name of the file to read tweets from. Make sure this file is in
+the `input` directory prior to running the program. Be aware that this file
+must not clash in names with another file on the classpath.
+
+    input.tweets.filename=****************
+
 # Running with Maven
 
 ## Install Maven
@@ -38,9 +47,13 @@ Install Maven (preferably version 3.x) by following the
 
 ## Running topologies with Maven
 
-To compile and run in local mode, use the command:
+To compile and run in local mode, using the twitter sample stream as the source, use the command:
 
-    $ mvn compile exec:java -Dexec.classpathScope=compile -Dexec.mainClass=com.aidanns.streams.assignment.two.topology.AssignmentTwo
+    $ mvn compile exec:java -Dexec.classpathScope=compile -Dexec.mainClass=com.aidanns.streams.assignment.two.topology.AssignmentTwoFromStream
+
+To compile and run in local mode, using the local file as the source, use the command:
+
+    $ mvn compile exec:java -Dexec.classpathScope=compile -Dexec.mainClass=com.aidanns.streams.assignment.two.topology.AssignmentTwoFromFile
 
 ## Packaging for use on a Storm cluster
 

@@ -1,62 +1,21 @@
 package com.aidanns.streams.assignment.two.topology;
 
-import java.util.Map;
-
-import twitter4j.Status;
 import twitter4j.internal.logging.Logger;
 
 import com.aidanns.streams.assignment.two.bolt.StatusThroughputRecorderBolt;
 import com.aidanns.streams.assignment.two.bolt.TopKWordsBolt;
+import com.aidanns.streams.assignment.two.bolt.PrintMessageBolt;
 import com.aidanns.streams.assignment.two.spout.TwitterStreamSpout;
 
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
-import backtype.storm.task.TopologyContext;
-import backtype.storm.topology.BasicOutputCollector;
-import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.topology.TopologyBuilder;
-import backtype.storm.topology.base.BaseBasicBolt;
-import backtype.storm.tuple.Tuple;
 
 /**
  * Main class to run the storm job. Runs in a local cluster.
  */
-public class AssignmentTwo {
+public class AssignmentTwoFromStream {
 	
-	/**
-	 * PrintMessageBolt accepts a message and prints it to the logger as a
-	 * message with INFO precedence.
-	 */
-	private static class PrintMessageBolt extends BaseBasicBolt {
-		
-		private static final long serialVersionUID = -2810876355107441445L;
-		
-		private Logger _logger;
-		
-		@Override
-		public void prepare(@SuppressWarnings("rawtypes") Map stormConf,
-				TopologyContext context) {
-			_logger = Logger.getLogger(PrintMessageBolt.class);
-		}
-
-		@Override
-		public void execute(Tuple tuple, BasicOutputCollector collector) {
-			Status status = (Status) tuple.getValue(0);
-			_logger.info(status.getText());
-		}
-
-		@Override
-		public void declareOutputFields(OutputFieldsDeclarer declarer) {
-			// No output.
-			return;
-		}
-	}
-
-	/**
-	 * Run the job.
-	 * @param args
-	 * @throws Exception
-	 */
 	public static void main(String[] args) {
 
 		TopologyBuilder builder = new TopologyBuilder();
@@ -82,7 +41,7 @@ public class AssignmentTwo {
 		try {
 			Thread.sleep(60000);
 		} catch (InterruptedException e) {
-			Logger.getLogger(AssignmentTwo.class).error("Interrupted while"
+			Logger.getLogger(AssignmentTwoFromStream.class).error("Interrupted while"
 					+ " waiting for local cluster to complete processing.");
 			e.printStackTrace();
 		}
