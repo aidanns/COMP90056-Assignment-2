@@ -110,9 +110,12 @@ public class TopKWordsBolt extends BaseStatusBolt {
 						
 						writer.write("\n");
 						for (Counter<String> counter : _topWords.topK(_numWords)) {
-							writer.write("Item: " + counter.getItem() + " Count: " 
-									+ counter.getCount() + " Error: " 
-									+ counter.getError() + "\n");
+							writer.write("Item: " + counter.getItem() 
+									+ " Count: " + counter.getCount() 
+									+ " Error: " + counter.getError() 
+									+ " Count Per Second: " + counter.getCount() / numSecondsSinceStart
+									+ " Error Per Second: " + counter.getError() / numSecondsSinceStart
+									+ "\n");
 						}
 						
 					} catch (IOException ex) {
