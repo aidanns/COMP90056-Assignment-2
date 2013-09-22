@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mvn compile exec:java -Dexec.classpathScope=compile -Dexec.mainClass=com.aidanns.streams.assignment.two.topology.AssignmentTwoFromFile
