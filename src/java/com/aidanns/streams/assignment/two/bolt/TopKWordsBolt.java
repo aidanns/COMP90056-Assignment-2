@@ -25,7 +25,7 @@ import twitter4j.internal.logging.Logger;
 
 /**
  * Bolt that will record the top K words in statuses that it processes and will
- * output them to output/top_statuses.
+ * output them to output/words.txt
  * @author Aidan Nagorcka-Smith (aidann@student.unimelb.edu.au)
  */
 @SuppressWarnings("serial")
