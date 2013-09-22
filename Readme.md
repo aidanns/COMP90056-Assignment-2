@@ -81,18 +81,23 @@ running system.
 
 Shows users that have similarity scores calculated > 0.65 based on their 
 tweets in a 5 minute sliding window according to the algorithm described in the 
-assignment specification.
+assignment specification. Updated every second.
 
 ## Throughput
 
 Shows information on the current throughput of tweets, total number of tweets
 processed and time the system has run for, updated every second.
+Updated every second.
 
 ## Users
 
 Shows the users that send the most tweets using the SpaceSaving algorithm.
+Updated every second.
 
 ## Words
 
 Shows the most common words or hashtags (configurable in the topology) that
-are seen in tweets that are processed.
+are seen in tweets that are processed. Output is saved every 5 minutes, files
+are marked with the number of minutes since the start of the run when they
+were created. The latest information is in the file without a suffix, updated
+every second..
