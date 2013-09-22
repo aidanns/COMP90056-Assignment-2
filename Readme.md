@@ -77,7 +77,22 @@ Use the following Maven command to run the unit tests.
 Output files are created in the `output/` folder and updated with data from the
 running system.
 
-## Thoughput
+## Similarity
+
+Shows users that have similarity scores calculated > 0.65 based on their 
+tweets in a 5 minute sliding window according to the algorithm described in the 
+assignment specification.
+
+## Throughput
 
 Shows information on the current throughput of tweets, total number of tweets
 processed and time the system has run for, updated every second.
+
+## Users
+
+Shows the users that send the most tweets using the SpaceSaving algorithm.
+
+## Words
+
+Shows the most common words or hashtags (configurable in the topology) that
+are seen in tweets that are processed.
