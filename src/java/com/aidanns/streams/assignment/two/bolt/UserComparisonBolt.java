@@ -230,9 +230,7 @@ public class UserComparisonBolt extends BaseSlidingWindowStatusBolt {
 			}
 		}
 
-		// Calculate similarity for all user pairs and record it if we havn't recorded the same score before.
-		// We will generate the same similarity multiple times (because it's a sliding window), so we need to avoid storing multiple copies of that similarity record.
-		//
+		// Calculate similarity for all user pairs that could have changed since the last window processing.
 		
 		Set<User> usersToReview = new HashSet<User>();
 		
