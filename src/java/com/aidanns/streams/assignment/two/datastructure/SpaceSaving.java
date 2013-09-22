@@ -133,8 +133,6 @@ public class SpaceSaving<T> {
 			queue.add(counter);
 		}
 		
-		System.out.println(queue);
-		
 		List<Counter<T>> topK = new ArrayList<Counter<T>>();
 		int m = Math.min(k, queue.size()); // Might not have got k elements yet.
 		for (int i = 0; i < m; i++) {
