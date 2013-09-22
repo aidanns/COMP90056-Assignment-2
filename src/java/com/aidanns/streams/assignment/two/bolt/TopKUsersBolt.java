@@ -124,7 +124,7 @@ public class TopKUsersBolt extends BaseStatusBolt {
 			OutputCollector collector) {
 		super.prepare(stormConf, context, collector);
 		
-		 _topUsers = new SpaceSaving<User>(_numUsers * 50);
+		 _topUsers = new SpaceSaving<User>(_numUsers * 1000);
 
 		// Setup output writing at a fixed interval.
 		Timer outputToFileTimer = new Timer();
