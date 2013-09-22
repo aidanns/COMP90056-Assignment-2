@@ -1,0 +1,5 @@
+Throughput Statistics:
+
+# Tweets processed: 50290
+Time elapsed:       3597.805
+Throughput:         13 tps

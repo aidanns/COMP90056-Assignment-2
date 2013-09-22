@@ -1,0 +1,11 @@
+Top Users Statistics:
+
+# Tweet processed: 28030
+Time elapsed:       1497.807
+Throughput:         18 tps
+
+Item: Doug Jones Count: 8 Error: 5
+Item:            Papi Ohvi Count: 7 Error: 4
+Item: Hylton('s T)Witter Count: 7 Error: 5
+Item: Tia Count: 7 Error: 5
+Item: Willow ❣ Count: 7 Error: 5

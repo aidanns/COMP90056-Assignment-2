@@ -1,0 +1,26 @@
+Top Words Statistics:
+
+# Words processed: 584177
+Time elapsed:       3597.81
+Throughput:         20863 wps
+
+Item: #gameinsight Count: 202 Error: 0 Count Per Second: 0.056145266 Error Per Second: 0.0
+Item: #EMABiggestFans Count: 150 Error: 0 Count Per Second: 0.041692029 Error Per Second: 0.0
+Item: #CowboysNation Count: 99 Error: 0 Count Per Second: 0.027516739 Error Per Second: 0.0
+Item: #androidgames, Count: 86 Error: 0 Count Per Second: 0.023903430 Error Per Second: 0.0
+Item: #android, Count: 76 Error: 0 Count Per Second: 0.021123962 Error Per Second: 0.0
+Item: #ipadgames, Count: 69 Error: 0 Count Per Second: 0.01917833 Error Per Second: 0.0
+Item: #City Count: 69 Error: 0 Count Per Second: 0.019178333 Error Per Second: 0.0
+Item: #DianaFollowParty Count: 65 Error: 0 Count Per Second: 0.018066546 Error Per Second: 0.0
+Item: #ExitSandman Count: 59 Error: 0 Count Per Second: 0.016398865 Error Per Second: 0.0
+Item: #ipad, Count: 52 Error: 0 Count Per Second: 0.014453237 Error Per Second: 0.0
+Item: #DianaLeakedFollowParty Count: 51 Error: 0 Count Per Second: 0.01417529 Error Per Second: 0.0
+Item: #No2Rouhani Count: 44 Error: 0 Count Per Second: 0.012229662 Error Per Second: 0.0
+Item: #Iran? Count: 44 Error: 0 Count Per Second: 0.012229662 Error Per Second: 0.0
+Item: #RT Count: 40 Error: 0 Count Per Second: 0.011117874 Error Per Second: 0.0
+Item: #Packers Count: 40 Error: 0 Count Per Second: 0.011117874 Error Per Second: 0.0
+Item: #Browns Count: 36 Error: 0 Count Per Second: 0.010006087 Error Per Second: 0.0
+Item: #iPad Count: 36 Error: 0 Count Per Second: 0.010006087 Error Per Second: 0.0
+Item: #nowplaying Count: 35 Error: 0 Count Per Second: 0.00972814 Error Per Second: 0.0
+Item: #WhatAboutLove Count: 33 Error: 3 Count Per Second: 0.009172246 Error Per Second: 0.0008338405
+Item: #TeamFollowBack Count: 32 Error: 0 Count Per Second: 0.0088943 Error Per Second: 0.0

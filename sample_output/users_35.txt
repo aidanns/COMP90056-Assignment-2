@@ -1,0 +1,11 @@
+Top Users Statistics:
+
+# Tweet processed: 35710
+Time elapsed:       2097.807
+Throughput:         17 tps
+
+Item:  Bring 1D To Central Count: 9 Error: 6
+Item: Pete Count: 8 Error: 7
+Item: €$pe ♥♬ Count: 8 Error: 7
+Item: Mariah . Count: 8 Error: 7
+Item: jhené aiko Count: 8 Error: 7

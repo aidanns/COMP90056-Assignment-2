@@ -1,0 +1,11 @@
+Top Users Statistics:
+
+# Tweet processed: 7137
+Time elapsed:       297.805
+Throughput:         23 tps
+
+Item: J Count: 4 Error: 0
+Item: vicky✿ Count: 3 Error: 0
+Item: Maru Count: 3 Error: 1
+Item: ♦ October 1st ♦ Count: 3 Error: 0
+Item: ♫รwєєт σf รтylєร♫TL Count: 3 Error: 1

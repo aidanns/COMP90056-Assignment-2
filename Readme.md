@@ -39,6 +39,8 @@ must not clash in names with another file on the classpath.
 
     input.tweets.filename=****************
 
+The input file should contain tweets in JSON format, one tweet per line.
+
 # Running with Maven
 
 ## Install Maven

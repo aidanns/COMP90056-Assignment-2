@@ -1,0 +1,11 @@
+Top Users Statistics:
+
+# Tweet processed: 20284
+Time elapsed:       1197.806
+Throughput:         16 tps
+
+Item: renmen fè m mal Count: 6 Error: 3
+Item: Rob Count: 6 Error: 3
+Item: Skie⛅ Count: 5 Error: 4
+Item: beatriz Count: 5 Error: 4
+Item: Clients & Profits Count: 5 Error: 4

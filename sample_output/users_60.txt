@@ -1,0 +1,11 @@
+Top Users Statistics:
+
+# Tweet processed: 50290
+Time elapsed:       3597.805
+Throughput:         13 tps
+
+Item: Little Elf Count: 12 Error: 9
+Item: madison_penland Count: 11 Error: 10
+Item: On a Mission Count: 11 Error: 10
+Item: leanna ❀ Count: 11 Error: 10
+Item: bekah. Count: 11 Error: 10

@@ -1,0 +1,11 @@
+Top Users Statistics:
+
+# Tweet processed: 14045
+Time elapsed:       597.805
+Throughput:         23 tps
+
+Item: jayla jayla baby✨~ Count: 4 Error: 2
+Item: Rena Marie  Count: 4 Error: 2
+Item: MissAylaShahid❁  Count: 4 Error: 2
+Item: Mr Superfli Count: 4 Error: 2
+Item: Demi Wemi ♥  Count: 4 Error: 2
