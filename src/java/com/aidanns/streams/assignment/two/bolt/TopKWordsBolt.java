@@ -1,12 +1,16 @@
 package com.aidanns.streams.assignment.two.bolt;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -35,6 +39,9 @@ public class TopKWordsBolt extends BaseStatusBolt {
 
 	/** File to write output to. */
 	private String OUTPUT_FILE_NAME = "output/words.txt";
+	
+	/** File to read stop words from. */
+	private String STOP_WORDS_FILE_NAME = "conf/stop_words.txt";
 
 	/** Counter for Tweets processed. */
 	private long _numberOfWordsProcessesd = 0;
@@ -47,6 +54,11 @@ public class TopKWordsBolt extends BaseStatusBolt {
 	
 	/** Number of words we're interested in. */
 	private int _numWords;
+	
+	/** Stop words that shouldn't be counted because they are too common and
+	 * don't really have meaning. Read from a file.
+	 */
+	private Set<String> _stopWords = new HashSet<String>();
 	
 	/**
 	 * Create a new TopKWordsBolt.
@@ -62,7 +74,7 @@ public class TopKWordsBolt extends BaseStatusBolt {
 			OutputCollector collector) {
 		super.prepare(stormConf, context, collector);
 		
-		 _topWords = new StreamSummary<String>(_numWords * 10);
+		 _topWords = new StreamSummary<String>(_numWords * 50);
 
 		// Setup output writing at a fixed interval.
 		Timer outputToFileTimer = new Timer();
@@ -108,6 +120,22 @@ public class TopKWordsBolt extends BaseStatusBolt {
 				}
 			}
 		}, FILE_WRITE_DELAY, FILE_WRITE_PERIOD);
+		
+		// Read in all the stop words from the file.
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader(STOP_WORDS_FILE_NAME));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				_stopWords.add(line.replaceAll("\\s+", ""));
+			}
+		} catch (IOException e) {
+			
+		} finally {
+			if (reader != null) {
+				try { reader.close(); } catch (IOException e) { /* Ensure close happens. */ }
+			}
+		}
 	}
 
 	@Override
@@ -117,7 +145,10 @@ public class TopKWordsBolt extends BaseStatusBolt {
 		}
 		StringTokenizer tokenizer = new StringTokenizer(status.getText());
 		while (tokenizer.hasMoreElements()) {
-			_topWords.offer(tokenizer.nextToken());
+			String word = tokenizer.nextToken();
+			if (!_stopWords.contains(word)) {
+				_topWords.offer(word);
+			}
 			++_numberOfWordsProcessesd;
 		}
 

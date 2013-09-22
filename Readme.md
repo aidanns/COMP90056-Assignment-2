@@ -16,6 +16,8 @@ First, you need `java`, `mvn` and `git` installed and in your user's `PATH`.
 
 ## Configuration
 
+### Twitter credentials
+
 Create a file `conf/twitter.properties` and fill it with the following content,
 specifying the OAuth credentials for the twitter account for API access.
 
@@ -23,6 +25,10 @@ specifying the OAuth credentials for the twitter account for API access.
     oauth.consumerSecret=********************
     oauth.accessToken=********************
     oauth.accessTokenSecret=********************
+
+### Stop words
+
+Stop words (which may not appear in the top words list) are listed in the file `conf/stop_words.txt`, one word per line.
 
 # Running with Maven
 

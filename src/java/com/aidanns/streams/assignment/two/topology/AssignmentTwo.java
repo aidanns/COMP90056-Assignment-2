@@ -80,7 +80,7 @@ public class AssignmentTwo {
 		cluster.submitTopology("assignment-2", conf, builder.createTopology());
 
 		try {
-			Thread.sleep(20000);
+			Thread.sleep(60000);
 		} catch (InterruptedException e) {
 			Logger.getLogger(AssignmentTwo.class).error("Interrupted while"
 					+ " waiting for local cluster to complete processing.");
