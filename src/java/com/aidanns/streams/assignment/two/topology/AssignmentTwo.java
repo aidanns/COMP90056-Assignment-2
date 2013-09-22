@@ -6,6 +6,7 @@ import com.aidanns.streams.assignment.two.bolt.PrintMessageBolt;
 import com.aidanns.streams.assignment.two.bolt.StatusThroughputRecorderBolt;
 import com.aidanns.streams.assignment.two.bolt.TopKUsersBolt;
 import com.aidanns.streams.assignment.two.bolt.TopKWordsBolt;
+import com.aidanns.streams.assignment.two.bolt.UserComparisonBolt;
 
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
@@ -38,6 +39,8 @@ public class AssignmentTwo {
 		builder.setBolt("top-20-words", new TopKWordsBolt(20, true), 1)
 				.shuffleGrouping("twitter-spout");
 		builder.setBolt("top-5-users", new TopKUsersBolt(5), 1)
+				.shuffleGrouping("twitter-spout");
+		builder.setBolt("user-similarity", new UserComparisonBolt(60 * 5, 0.65), 1)
 				.shuffleGrouping("twitter-spout");
 
 		// Start the job.
