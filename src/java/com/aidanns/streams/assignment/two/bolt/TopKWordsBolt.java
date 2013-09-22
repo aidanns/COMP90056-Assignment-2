@@ -15,8 +15,8 @@ import java.util.StringTokenizer;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.clearspring.analytics.stream.Counter;
-import com.clearspring.analytics.stream.StreamSummary;
+import com.aidanns.streams.assignment.two.datastructure.SpaceSaving;
+import com.aidanns.streams.assignment.two.datastructure.SpaceSaving.Counter;
 
 import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
@@ -50,7 +50,7 @@ public class TopKWordsBolt extends BaseStatusBolt {
 	private Date _startDate;
 
 	/** Data structure implementing the TopK algorithm. */
-	private StreamSummary<String> _topWords;
+	private SpaceSaving<String> _topWords;
 	
 	/** Number of words we're interested in. */
 	private int _numWords;
@@ -80,7 +80,7 @@ public class TopKWordsBolt extends BaseStatusBolt {
 			OutputCollector collector) {
 		super.prepare(stormConf, context, collector);
 		
-		 _topWords = new StreamSummary<String>(_numWords * 50);
+		 _topWords = new SpaceSaving<String>(_numWords * 50);
 
 		// Setup output writing at a fixed interval.
 		Timer outputToFileTimer = new Timer();

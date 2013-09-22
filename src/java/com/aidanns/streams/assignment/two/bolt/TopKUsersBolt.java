@@ -13,8 +13,8 @@ import java.util.TimerTask;
 import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
 
-import com.clearspring.analytics.stream.Counter;
-import com.clearspring.analytics.stream.StreamSummary;
+import com.aidanns.streams.assignment.two.datastructure.SpaceSaving;
+import com.aidanns.streams.assignment.two.datastructure.SpaceSaving.Counter;
 
 import twitter4j.Status;
 import twitter4j.User;
@@ -47,7 +47,7 @@ public class TopKUsersBolt extends BaseStatusBolt {
 	private int _numUsers;
 	
 	/** Data structure implementing the TopK algorithm. */
-	private StreamSummary<User> _topUsers;
+	private SpaceSaving<User> _topUsers;
 	
 	/**
 	 * TimerTask that will write the output from this bolt out to a file.
@@ -124,7 +124,7 @@ public class TopKUsersBolt extends BaseStatusBolt {
 			OutputCollector collector) {
 		super.prepare(stormConf, context, collector);
 		
-		 _topUsers = new StreamSummary<User>(_numUsers * 50);
+		 _topUsers = new SpaceSaving<User>(_numUsers * 50);
 
 		// Setup output writing at a fixed interval.
 		Timer outputToFileTimer = new Timer();
