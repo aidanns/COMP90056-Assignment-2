@@ -39,6 +39,9 @@ public class TwitterFileSpout extends BaseRichSpout {
 	private String _fileName;
 	
 	private BufferedReader _tweetFileReader;
+	
+	/** Number of lines of input skipped due to parsing errors. */
+	private int _linesSkipped = 0;
 
 	/**
 	 * Create a new TwitterFileSpout.
@@ -81,7 +84,8 @@ public class TwitterFileSpout extends BaseRichSpout {
 			System.exit(1);
 		} catch (TwitterException e) {
 			// If we can't process an individual tweet JSON.
-			getLogger().warn("Couldn't parse a JSON line from the input file. Make sure your JSON is well formed. Skipping.");
+			++_linesSkipped;
+			getLogger().warn("Couldn't parse a JSON line from the input file. Make sure your JSON is well formed. Skipped " + _linesSkipped + " lines so far.");
 			nextTuple();
 		}
 	}
