@@ -49,6 +49,9 @@ public class TopKUsersBolt extends BaseStatusBolt {
 	/** Data structure implementing the TopK algorithm. */
 	private StreamSummary<User> _topUsers;
 	
+	/**
+	 * TimerTask that will write the output from this bolt out to a file.
+	 */
 	private class OutputTopKUsersTask extends TimerTask {
 		
 		private boolean _shouldAppendMinutesToFileName;
