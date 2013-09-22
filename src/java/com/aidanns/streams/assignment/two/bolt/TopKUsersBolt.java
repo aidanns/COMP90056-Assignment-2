@@ -89,12 +89,13 @@ public class TopKUsersBolt extends BaseStatusBolt {
 							+ throughput + " tps\n");
 					
 					writer.write("\n");
-					for (Counter<User> counter : _topUsers.topK(_numUsers)) {
-						writer.write("Item: " + counter.getItem().getName() + " Count: " 
-								+ counter.getCount() + " Error: " 
-								+ counter.getError() + "\n");
+					synchronized (_topUsers) {
+						for (Counter<User> counter : _topUsers.topK(_numUsers)) {
+							writer.write("Item: " + counter.getItem().getName() + " Count: " 
+									+ counter.getCount() + " Error: " 
+									+ counter.getError() + "\n");
+						}
 					}
-					
 				} catch (IOException ex) {
 					Logger.getLogger(StatusThroughputRecorderBolt.class).error(
 							"Error while writing words statistics.");
@@ -137,7 +138,9 @@ public class TopKUsersBolt extends BaseStatusBolt {
 		if (_startDate == null) {
 			 _startDate = new Date();
 		}
-		_topUsers.offer(status.getUser());
+		synchronized (_topUsers) {
+			_topUsers.offer(status.getUser());
+		}
 		++_numberOfTweetsProcessed;
 	}
 

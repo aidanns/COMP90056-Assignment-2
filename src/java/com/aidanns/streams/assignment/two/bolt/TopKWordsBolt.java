@@ -109,15 +109,16 @@ public class TopKWordsBolt extends BaseStatusBolt {
 								+ throughput + " wps\n");
 						
 						writer.write("\n");
-						for (Counter<String> counter : _topWords.topK(_numWords)) {
-							writer.write("Item: " + counter.getItem() 
-									+ " Count: " + counter.getCount() 
-									+ " Error: " + counter.getError() 
-									+ " Count Per Second: " + counter.getCount() / numSecondsSinceStart
-									+ " Error Per Second: " + counter.getError() / numSecondsSinceStart
-									+ "\n");
+						synchronized (_topWords) {
+							for (Counter<String> counter : _topWords.topK(_numWords)) {
+								writer.write("Item: " + counter.getItem() 
+										+ " Count: " + counter.getCount() 
+										+ " Error: " + counter.getError() 
+										+ " Count Per Second: " + counter.getCount() / numSecondsSinceStart
+										+ " Error Per Second: " + counter.getError() / numSecondsSinceStart
+										+ "\n");
+							}
 						}
-						
 					} catch (IOException ex) {
 						Logger.getLogger(StatusThroughputRecorderBolt.class).error(
 								"Error while writing words statistics.");
@@ -157,7 +158,9 @@ public class TopKWordsBolt extends BaseStatusBolt {
 			String word = tokenizer.nextToken();
 			if ((_onlyHashtags == false && _stopWords.contains(word))
 					|| (_onlyHashtags == true && word.startsWith("#"))) {
-				_topWords.offer(word);
+				synchronized (_topWords) {
+					_topWords.offer(word);
+				}
 			}
 			++_numberOfWordsProcessesd;
 		}

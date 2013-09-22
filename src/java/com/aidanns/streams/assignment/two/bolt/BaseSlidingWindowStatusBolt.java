@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+
+import com.google.api.client.util.Lists;
 
 import twitter4j.Status;
 
@@ -15,9 +15,6 @@ import twitter4j.Status;
  */
 @SuppressWarnings("serial")
 public abstract class BaseSlidingWindowStatusBolt extends BaseStatusBolt {
-	
-	/** Map from statuses to the date that they were fed to this bolt. */
-	private Map<Status, Date> _statusToInsertionTimeMap = new HashMap<Status, Date>();
 	
 	/** The current state of the window. */
 	private LinkedList<Status> _window = new LinkedList<Status>();
@@ -37,10 +34,11 @@ public abstract class BaseSlidingWindowStatusBolt extends BaseStatusBolt {
 	/**
 	 * Check whether the given date is out of the window.
 	 * @param date The date to check.
+	 * @param currentDate The current date.
 	 * @return If the date is out of the current window.
 	 */
-	private boolean dateIsOutOfWindow(Date date) {
-		return (new Date().getTime() - date.getTime()) > _windowSizeInSeconds * 1000;
+	private boolean dateIsOutOfWindow(Date date, Date currentDate) {
+		return (currentDate.getTime() - date.getTime()) > _windowSizeInSeconds * 1000;
 	}
 	
 	/**
@@ -48,22 +46,30 @@ public abstract class BaseSlidingWindowStatusBolt extends BaseStatusBolt {
 	 * every window that needs to be processed.
 	 * @param window The window of statuses that will be processed. The window
 	 *     can not be modified.
+	 * @param additions The statuses that were added since the last call to processWindow.
+	 * @param deletions The statuses that were removed since the last call to processWindow.
 	 */
-	protected abstract void processWindow(List<Status> window);
+	protected abstract void processWindow(List<Status> window, List<Status> additions,
+			List<Status> deletions);
 
 	@Override
 	void processStatus(Status status) {
 		_window.push(status);
-		_statusToInsertionTimeMap.put(status, new Date());
+		
+		List<Status> additions = Lists.newArrayList();
+		additions.add(status);
+		
+		List<Status> deletions = Lists.newArrayList();
 		
 		// Remove any statuses that are now out of date.
-		while (_window.peek() != null && dateIsOutOfWindow(_statusToInsertionTimeMap.get(_window.peek()))) {
-			_statusToInsertionTimeMap.remove(_window.peek());
-			_window.pop();
+		while (_window.peek() != null && dateIsOutOfWindow(_window.peek().getCreatedAt(), status.getCreatedAt())) {
+			deletions.add(_window.pop());
 		}
 		
 		// Process all statuses in the current window.
-		processWindow(Collections.unmodifiableList(_window));
+		processWindow(Collections.unmodifiableList(_window),
+				Collections.unmodifiableList(additions),
+				Collections.unmodifiableList(deletions));
 	}
 
 }

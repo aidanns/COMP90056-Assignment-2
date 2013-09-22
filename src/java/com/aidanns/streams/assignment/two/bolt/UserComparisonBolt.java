@@ -128,10 +128,12 @@ public class UserComparisonBolt extends BaseSlidingWindowStatusBolt {
 				writer.write("Users Similarity Statistics:\n");
 				writer.write("\n");
 				// See the assignment spec for the output format.
-				for (SimilarityRecord record : _records) {
-					writer.write(_dateFormatter.format(record.time())+ ", " 
-							+ record.userOneName() + ", " + record.userTwoName() 
-							+ ", " + String.format("%.2f", record.similarityScore()) + "\n");
+				synchronized (_records) {
+					for (SimilarityRecord record : _records) {
+						writer.write(_dateFormatter.format(record.time())+ ", " 
+								+ record.userOneName() + ", " + record.userTwoName() 
+								+ ", " + String.format("%.2f", record.similarityScore()) + "\n");
+					}
 				}
 			} catch (IOException e) {
 				Logger.getLogger(OutputSimilarUsersTask.class).error(
@@ -204,9 +206,9 @@ public class UserComparisonBolt extends BaseSlidingWindowStatusBolt {
 		
 		return numerator / (Math.sqrt(denomniatorLeft) * Math.sqrt(denominatorRight));
 	}
-
+	
 	@Override
-	protected void processWindow(List<Status> window) {
+	protected void processWindow(List<Status> window, List<Status> additions, List<Status> deletions) {
 		
 		// Map<"twitter username", Map<"word in their tweets", "frequency of that word in their tweets">>
 		Map<User, Map<String, Integer>> userToWordsMap = new HashMap<User, Map<String, Integer>>();
@@ -230,14 +232,30 @@ public class UserComparisonBolt extends BaseSlidingWindowStatusBolt {
 
 		// Calculate similarity for all user pairs and record it if we havn't recorded the same score before.
 		// We will generate the same similarity multiple times (because it's a sliding window), so we need to avoid storing multiple copies of that similarity record.
-		for (User u1 : userToWordsMap.keySet()) {
+		//
+		
+		Set<User> usersToReview = new HashSet<User>();
+		
+		for (Status s : additions) {
+			usersToReview.add(s.getUser());
+		}
+		
+		for (Status s : deletions) {
+			if (userToWordsMap.keySet().contains(s.getUser())) {
+				usersToReview.add(s.getUser());
+			}
+		}
+		
+		for (User u1 : usersToReview) {
 			for (User u2 : userToWordsMap.keySet()) {
 				if (!u1.equals(u2)) {
 					double similarity = computeSimilarityScore(userToWordsMap.get(u1), userToWordsMap.get(u2));
 					if (similarity > _similarityHurdle) {
 						SimilarityRecord record = new SimilarityRecord(new Date(), u1.getName(), u2.getName(), similarity);
-						if (!_records.contains(record)) {
-							_records.add(record);
+						synchronized (_records) {
+							if (!_records.contains(record)) {
+								_records.add(record);
+							}
 						}
 					}
 				}
