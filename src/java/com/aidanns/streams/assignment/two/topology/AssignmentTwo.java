@@ -69,7 +69,7 @@ public class AssignmentTwo {
 				.shuffleGrouping("twitter-sample-spout");
 		builder.setBolt("throughput-recorder", new StatusThroughputRecorderBolt(), 1)
 				.shuffleGrouping("twitter-sample-spout");
-		builder.setBolt("top-20-words", new TopKWordsBolt(20), 1)
+		builder.setBolt("top-20-words", new TopKWordsBolt(20, true), 1)
 				.shuffleGrouping("twitter-sample-spout");
 
 		// Start the job.

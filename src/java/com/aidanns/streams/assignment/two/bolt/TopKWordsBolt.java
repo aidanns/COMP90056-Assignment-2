@@ -55,6 +55,9 @@ public class TopKWordsBolt extends BaseStatusBolt {
 	/** Number of words we're interested in. */
 	private int _numWords;
 	
+	/** If we're only interested in hashtags. */
+	private boolean _onlyHashtags;
+	
 	/** Stop words that shouldn't be counted because they are too common and
 	 * don't really have meaning. Read from a file.
 	 */
@@ -63,9 +66,12 @@ public class TopKWordsBolt extends BaseStatusBolt {
 	/**
 	 * Create a new TopKWordsBolt.
 	 * @param numWords The number of words that we want to know about.
+	 * @param onlyHashtags Set to true if you only want to consider words starting
+	 *    with the # symbole (known on Twitter as Hashtags).
 	 */
-	public TopKWordsBolt(int numWords) {
+	public TopKWordsBolt(int numWords, boolean onlyHashtags) {
 		_numWords = numWords;
+		_onlyHashtags = onlyHashtags;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -146,7 +152,8 @@ public class TopKWordsBolt extends BaseStatusBolt {
 		StringTokenizer tokenizer = new StringTokenizer(status.getText());
 		while (tokenizer.hasMoreElements()) {
 			String word = tokenizer.nextToken();
-			if (!_stopWords.contains(word)) {
+			if ((_onlyHashtags == false && _stopWords.contains(word))
+					|| (_onlyHashtags == true && word.startsWith("#"))) {
 				_topWords.offer(word);
 			}
 			++_numberOfWordsProcessesd;
