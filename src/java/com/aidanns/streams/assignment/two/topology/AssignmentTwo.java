@@ -6,6 +6,7 @@ import twitter4j.Status;
 import twitter4j.internal.logging.Logger;
 
 import com.aidanns.streams.assignment.two.bolt.StatusThroughputRecorderBolt;
+import com.aidanns.streams.assignment.two.bolt.TopKWordsBolt;
 import com.aidanns.streams.assignment.two.spout.TwitterStreamSpout;
 
 import backtype.storm.Config;
@@ -68,6 +69,8 @@ public class AssignmentTwo {
 				.shuffleGrouping("twitter-sample-spout");
 		builder.setBolt("throughput-recorder", new StatusThroughputRecorderBolt(), 1)
 				.shuffleGrouping("twitter-sample-spout");
+		builder.setBolt("top-20-words", new TopKWordsBolt(20), 1)
+				.shuffleGrouping("twitter-sample-spout");
 
 		// Start the job.
 		Config conf = new Config();
@@ -77,7 +80,7 @@ public class AssignmentTwo {
 		cluster.submitTopology("assignment-2", conf, builder.createTopology());
 
 		try {
-			Thread.sleep(60000);
+			Thread.sleep(20000);
 		} catch (InterruptedException e) {
 			Logger.getLogger(AssignmentTwo.class).error("Interrupted while"
 					+ " waiting for local cluster to complete processing.");
