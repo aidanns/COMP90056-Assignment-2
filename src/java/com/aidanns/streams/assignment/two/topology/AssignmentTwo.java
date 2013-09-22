@@ -2,7 +2,6 @@ package com.aidanns.streams.assignment.two.topology;
 
 import twitter4j.internal.logging.Logger;
 
-import com.aidanns.streams.assignment.two.bolt.PrintMessageBolt;
 import com.aidanns.streams.assignment.two.bolt.StatusThroughputRecorderBolt;
 import com.aidanns.streams.assignment.two.bolt.TopKUsersBolt;
 import com.aidanns.streams.assignment.two.bolt.TopKWordsBolt;
@@ -32,8 +31,6 @@ public class AssignmentTwo {
 		builder.setSpout("twitter-spout", spout, 1);
 
 		// Setup the bolts.
-		builder.setBolt("print-message", new PrintMessageBolt(), 1)
-				.shuffleGrouping("twitter-spout");
 		builder.setBolt("throughput-recorder", new StatusThroughputRecorderBolt(), 1)
 				.shuffleGrouping("twitter-spout");
 		builder.setBolt("top-20-words", new TopKWordsBolt(20, true), 1)
