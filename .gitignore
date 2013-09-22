@@ -3,5 +3,5 @@
 conf/twitter.properties
 .settings
 target/
-output/throughput.txt
 lib
+output/*
