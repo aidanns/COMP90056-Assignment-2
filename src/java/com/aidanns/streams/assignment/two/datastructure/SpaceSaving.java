@@ -1,6 +1,7 @@
 package com.aidanns.streams.assignment.two.datastructure;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,10 @@ public class SpaceSaving<T> {
 		public int compareTo(Counter<E> o) {
 			return _count.compareTo(o.getCount());
 		}
+		
+		public String toString() {
+			return "Counter <Item: " + _item.toString() + ", Count: " + _count + ", Error: " + _error + ">";
+		}
 	}
 
 	/** Maximum number of items to store. Larger is more accurate. */
@@ -100,21 +105,35 @@ public class SpaceSaving<T> {
 	}
 	
 	public void offer(T item) {
-		if (_itemToCount.size() < _size) {
-			_itemToCount.put(item, 1);
-			_itemToError.put(item, 0);
+		if (_itemToCount.containsKey(item)) {
+			int newValue = _itemToCount.get(item) + 1;
+			_itemToCount.put(item, newValue);
+
 		} else {
-			int previousSmallestCount = removeSmallest();
-			_itemToCount.put(item, previousSmallestCount + 1);
-			_itemToError.put(item, previousSmallestCount);
+			if (_itemToCount.size() < _size) {
+				_itemToCount.put(item, 1);
+				_itemToError.put(item, 0);
+			} else {
+				int previousSmallestCount = removeSmallest();
+				_itemToCount.put(item, previousSmallestCount + 1);
+				_itemToError.put(item, previousSmallestCount);
+			}
 		}
 	}
 	
 	public List<Counter<T>> topK(int k) {
-		PriorityQueue<Counter<T>> queue = new PriorityQueue<Counter<T>>();
+		PriorityQueue<Counter<T>> queue = new PriorityQueue<Counter<T>>(_itemToCount.size(), new Comparator<Counter<T>>() {
+			@Override
+			public int compare(Counter<T> o1, Counter<T> o2) {
+				return o2.compareTo(o1); // Inverse the ordering because we want a max heap.
+			}
+		});
 		for (T item : _itemToCount.keySet()) {
-			queue.add(new Counter<T>(item, _itemToCount.get(item), _itemToError.get(item)));
+			Counter<T> counter = new Counter<T>(item, _itemToCount.get(item), _itemToError.get(item));
+			queue.add(counter);
 		}
+		
+		System.out.println(queue);
 		
 		List<Counter<T>> topK = new ArrayList<Counter<T>>();
 		int m = Math.min(k, queue.size()); // Might not have got k elements yet.
