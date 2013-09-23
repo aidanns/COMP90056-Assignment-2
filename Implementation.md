@@ -9,13 +9,13 @@ streaming API and piping them in to the application through a spout. All bolts
 read statuses directly from the spout and do processing on them.
 
 
- [Source]--- [Throughput Recorder]
-          |
-          |- [Top 20 Words]
-          |
-          |- [Top 5 Users]
-          |
-          |- [User Similarity]
+    [Source]--- [Throughput Recorder]
+             |
+             |- [Top 20 Words]
+             |
+             |- [Top 5 Users]
+             |
+             |- [User Similarity]
 
 ## Filtering
 
